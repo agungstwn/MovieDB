@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- padding -->
+    <dimen name="paddingSmall">4dp</dimen>
+    <dimen name="paddingMedium">8dp</dimen>
+    <dimen name="paddingLarge">16dp</dimen>
+    <dimen name="paddingFab">24dp</dimen>
+    <dimen name="paddingExtraLarge">32dp</dimen>
+
+    <!-- text -->
+    <dimen name="text_small">12sp</dimen>
+    <dimen name="text_form">13sp</dimen>
+    <dimen name="text_medium">14sp</dimen>
+    <dimen name="text_large">16sp</dimen>
+    <dimen name="text_extra_large">32sp</dimen>
+
+    <!-- margin -->
+    <dimen name="marginSmall">4dp</dimen>
+    <dimen name="marginMedium">8dp</dimen>
+    <dimen name="marginLarge">16dp</dimen>
+    <dimen name="marginFab">24dp</dimen>
+    <dimen name="marginExtraLarge">32dp</dimen>
+
+    <!-- toolbar -->
+    <dimen name="toolbar_height">60dp</dimen>
+    <dimen name="toolbar_height_small">50dp</dimen>
+    <dimen name="header_nav">240dp</dimen>
+
+
+</resources>
