@@ -1,5 +1,6 @@
 package com.agung.android.moviedb.activity;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.internal.NavigationMenuView;
 import android.support.design.widget.NavigationView;
@@ -10,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -20,8 +20,8 @@ import android.widget.Toast;
 import com.agung.android.moviedb.R;
 import com.agung.android.moviedb.adapter.MovieAdapter;
 import com.agung.android.moviedb.api.ApiClient;
-import com.agung.android.moviedb.model.MovieResponse;
-import com.agung.android.moviedb.model.ResultsItem;
+import com.agung.android.moviedb.model.nowPlayingResponse.NowPlayingResponse;
+import com.agung.android.moviedb.model.nowPlayingResponse.ResultsItem;
 
 import java.util.List;
 
@@ -57,18 +57,17 @@ public class MainActivity extends AppCompatActivity implements
     }
 
      void initView() {
-        Call<MovieResponse> call = ApiClient.getService().getTopRatedMovies(API_KEY);
-        call.enqueue(new Callback<MovieResponse>() {
+        Call<NowPlayingResponse> call = ApiClient.getService().getNowPlaying(API_KEY);
+        call.enqueue(new Callback<NowPlayingResponse>() {
             @Override
-            public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
+            public void onResponse(Call<NowPlayingResponse> call, Response<NowPlayingResponse> response) {
                 List<ResultsItem> movies = response.body().getResults();
-
                 mRecylerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                 mRecylerView.setAdapter(new MovieAdapter(movies, R.layout.row_home_list, getApplication()));
             }
 
             @Override
-            public void onFailure(Call<MovieResponse> call, Throwable t) {
+            public void onFailure(Call<NowPlayingResponse> call, Throwable t) {
 
             }
         });
@@ -104,6 +103,7 @@ public class MainActivity extends AppCompatActivity implements
         int id = item.getItemId();
 
         if (id == R.id.action_now_playing){
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
             Toast.makeText(this, "Now Playing Clicked", Toast.LENGTH_SHORT).show();
         }
         else if (id == R.id.action_top_rate){

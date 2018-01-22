@@ -1,4 +1,4 @@
-package com.agung.android.moviedb.model;
+package com.agung.android.moviedb.model.upComingResponse;
 
 import java.util.List;
 import javax.annotation.Generated;
@@ -35,7 +35,7 @@ public class ResultsItem{
 	private String releaseDate;
 
 	@SerializedName("vote_average")
-	private double voteAverage;
+	private int voteAverage;
 
 	@SerializedName("popularity")
 	private double popularity;
@@ -121,11 +121,11 @@ public class ResultsItem{
 		return releaseDate;
 	}
 
-	public void setVoteAverage(double voteAverage){
+	public void setVoteAverage(int voteAverage){
 		this.voteAverage = voteAverage;
 	}
 
-	public double getVoteAverage(){
+	public int getVoteAverage(){
 		return voteAverage;
 	}
 

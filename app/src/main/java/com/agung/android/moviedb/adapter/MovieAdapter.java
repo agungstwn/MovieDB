@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.agung.android.moviedb.R;
-import com.agung.android.moviedb.model.ResultsItem;
+import com.agung.android.moviedb.model.nowPlayingResponse.ResultsItem;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

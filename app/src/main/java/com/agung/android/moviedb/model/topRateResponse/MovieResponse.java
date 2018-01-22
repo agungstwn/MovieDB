@@ -1,4 +1,4 @@
-package com.agung.android.moviedb.model;
+package com.agung.android.moviedb.model.topRateResponse;
 
 import java.util.List;
 import javax.annotation.Generated;
