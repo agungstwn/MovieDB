@@ -1,6 +1,7 @@
 package com.agung.android.moviedb.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.internal.NavigationMenuView;
 import android.support.design.widget.NavigationView;
@@ -8,13 +9,13 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
 import com.agung.android.moviedb.R;
@@ -32,7 +33,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements
-        NavigationView.OnNavigationItemSelectedListener{
+        NavigationView.OnNavigationItemSelectedListener {
+
     @BindView(R.id.nav_view)
     NavigationView mNavView;
     @BindView(R.id.toolbar)
@@ -41,11 +43,15 @@ public class MainActivity extends AppCompatActivity implements
     View rootLayout;
     @BindView(R.id.rv_home)
     RecyclerView mRecylerView;
+    @BindView(R.id.iv_home_image)
+    ImageView mImageHeader;
+    @BindView(R.id.tv_header_title)
+    TextView mHeaderTitle;
 
     private TextView mUsername;
     private TextView mEmail;
 
-    private final static String API_KEY = "a66a817fc8a82a58172fad6b30e38aee";
+    public final static String API_KEY = "a66a817fc8a82a58172fad6b30e38aee";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements
         initView();
     }
 
-     void initView() {
+    void initView() {
         Call<NowPlayingResponse> call = ApiClient.getService().getNowPlaying(API_KEY);
         call.enqueue(new Callback<NowPlayingResponse>() {
             @Override
@@ -73,8 +79,8 @@ public class MainActivity extends AppCompatActivity implements
         });
     }
 
-    public void initToolbarNavigation(){
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+    public void initToolbarNavigation() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
 
@@ -102,21 +108,28 @@ public class MainActivity extends AppCompatActivity implements
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_now_playing){
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-            Toast.makeText(this, "Now Playing Clicked", Toast.LENGTH_SHORT).show();
+        if (id == R.id.action_popular) {
+            startActivity(new Intent(getApplicationContext(), PopularActivity.class));
+            Toast.makeText(this, "Popular Clicked", Toast.LENGTH_SHORT).show();
         }
-        else if (id == R.id.action_top_rate){
+        else if (id == R.id.action_top_rate) {
+            startActivity(new Intent(getApplicationContext(), TopRateActivity.class));
             Toast.makeText(this, "Top Rating Clicked", Toast.LENGTH_SHORT).show();
         }
-        else if (id == R.id.action_coming_soon){
+        else if (id == R.id.action_coming_soon) {
+            startActivity(new Intent(getApplicationContext(), UpComingActivity.class));
             Toast.makeText(this, "Comming Soon Clicked", Toast.LENGTH_SHORT).show();
         }
-        else if (id == R.id.action_share){
+        else if (id == R.id.action_about) {
+            Toast.makeText(this, "About Me Clicked", Toast.LENGTH_SHORT).show();
+        }
+        else if (id == R.id.action_share) {
             Toast.makeText(this, "Share Clicked", Toast.LENGTH_SHORT).show();
         }
-        DrawerLayout drawer = (DrawerLayout)findViewById(R.id.drawer_layout);
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }

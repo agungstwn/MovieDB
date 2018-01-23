@@ -6,4 +6,7 @@
     <string name="title_movie">Title Movie</string>
     <string name="subtitle_movie">Subtitle Movie</string>
     <string name="description_movie">Description Movie</string>
+    <string name="movie_title">Movie Title</string>
+    <string name="sinkronisas_no_data_offline">No Data Offline</string>
+    <string name="no_data">Tidak Ada Data</string>
 </resources>

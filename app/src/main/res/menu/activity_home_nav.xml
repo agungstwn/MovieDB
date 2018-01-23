@@ -3,23 +3,27 @@
     <item android:title="Movie Jos">
         <menu>
             <item
-                android:id="@+id/action_now_playing"
-                android:title="Now Playing"/>
+                android:id="@+id/action_popular"
+                android:title="Popular Movie"/>
 
             <item
                 android:id="@+id/action_top_rate"
-                android:title="Top Rate"/>
+                android:title="Top Rate Movie"/>
 
             <item
                 android:id="@+id/action_coming_soon"
-                android:title="Coming Soon"/>
+                android:title="Coming Soon Movie"/>
         </menu>
     </item>
 
     <item android:title="Let you Friends now">
         <menu>
             <item
+                android:id="@+id/action_about"
+                android:title="About Me"/>
+            <item
                 android:id="@+id/action_share"
+
                 android:title="Share"/>
         </menu>
     </item>

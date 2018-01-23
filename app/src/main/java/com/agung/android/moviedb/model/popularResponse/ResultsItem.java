@@ -1,4 +1,4 @@
-package com.agung.android.moviedb.model.upComingResponse;
+package com.agung.android.moviedb.model.popularResponse;
 
 import java.util.List;
 import javax.annotation.Generated;

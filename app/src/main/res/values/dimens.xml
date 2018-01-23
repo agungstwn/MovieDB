@@ -3,6 +3,7 @@
     <!-- padding -->
     <dimen name="paddingSmall">4dp</dimen>
     <dimen name="paddingMedium">8dp</dimen>
+    <dimen name="paddingHalfMedium">12dp</dimen>
     <dimen name="paddingLarge">16dp</dimen>
     <dimen name="paddingFab">24dp</dimen>
     <dimen name="paddingExtraLarge">32dp</dimen>

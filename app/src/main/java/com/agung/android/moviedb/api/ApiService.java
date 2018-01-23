@@ -1,6 +1,7 @@
 package com.agung.android.moviedb.api;
 
 import com.agung.android.moviedb.model.nowPlayingResponse.NowPlayingResponse;
+import com.agung.android.moviedb.model.popularResponse.PopularResponse;
 import com.agung.android.moviedb.model.topRateResponse.MovieResponse;
 import com.agung.android.moviedb.model.upComingResponse.UpComingResponse;
 
@@ -21,6 +22,9 @@ public interface ApiService {
 
     @GET("movie/upcoming")
     Call<UpComingResponse>getUpcomingResponse(@Query("api_key")String apiKey);
+
+    @GET("movie/popular")
+    Call<PopularResponse>getPopularRensponse(@Query("api_key")String apiKey);
 
 
 
