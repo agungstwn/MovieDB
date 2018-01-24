@@ -1,7 +1,10 @@
 package com.agung.android.moviedb.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Movie;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.design.internal.NavigationMenuView;
 import android.support.design.widget.NavigationView;
@@ -23,8 +26,10 @@ import com.agung.android.moviedb.adapter.MovieAdapter;
 import com.agung.android.moviedb.api.ApiClient;
 import com.agung.android.moviedb.model.nowPlayingResponse.NowPlayingResponse;
 import com.agung.android.moviedb.model.nowPlayingResponse.ResultsItem;
+import com.bumptech.glide.Glide;
 
 import java.util.List;
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements
     private TextView mEmail;
 
     public final static String API_KEY = "a66a817fc8a82a58172fad6b30e38aee";
+    public final static String IMAGE_PATH = "https://image.tmdb.org/t/p/w500";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements
                 List<ResultsItem> movies = response.body().getResults();
                 mRecylerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                 mRecylerView.setAdapter(new MovieAdapter(movies, R.layout.row_home_list, getApplication()));
+                sliderImages(movies);
             }
 
             @Override
@@ -128,5 +135,31 @@ public class MainActivity extends AppCompatActivity implements
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    public void sliderImages(final List<ResultsItem> movies){
+        final Random random = new Random();
+        ResultsItem movie = movies.get(random.nextInt(movies.size()));
+        Glide.with(this).load(IMAGE_PATH + movie.getBackdropPath()).into(mImageHeader);
+        mHeaderTitle.setText(movie.getTitle());
+        final Context context = this;
+
+        new CountDownTimer(5000, 1000){
+
+            @Override
+            public void onTick(long l) {
+
+            }
+
+            @Override
+            public void onFinish() {
+                ResultsItem movie = movies.get(random.nextInt(movies.size()));
+                Glide.with(context).load(IMAGE_PATH
+                        + movie.getBackdropPath()).into(mImageHeader);
+                mHeaderTitle.setText(movie.getTitle());
+                start();
+            }
+        }.start();
+    }
+
 
 }
