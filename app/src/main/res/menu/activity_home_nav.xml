@@ -4,14 +4,17 @@
         <menu>
             <item
                 android:id="@+id/action_popular"
+                android:icon="@drawable/ic_genre"
                 android:title="Popular Movie"/>
 
             <item
                 android:id="@+id/action_top_rate"
+                android:icon="@drawable/ic_rating"
                 android:title="Top Rate Movie"/>
 
             <item
                 android:id="@+id/action_coming_soon"
+                android:icon="@drawable/ic_releasedate"
                 android:title="Coming Soon Movie"/>
         </menu>
     </item>
@@ -20,11 +23,8 @@
         <menu>
             <item
                 android:id="@+id/action_about"
+                android:icon="@drawable/ic_about"
                 android:title="About Me"/>
-            <item
-                android:id="@+id/action_share"
-
-                android:title="Share"/>
         </menu>
     </item>
 </menu>

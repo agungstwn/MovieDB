@@ -123,9 +123,6 @@ public class MainActivity extends AppCompatActivity implements
         else if (id == R.id.action_about) {
             Toast.makeText(this, "About Me Clicked", Toast.LENGTH_SHORT).show();
         }
-        else if (id == R.id.action_share) {
-            Toast.makeText(this, "Share Clicked", Toast.LENGTH_SHORT).show();
-        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
