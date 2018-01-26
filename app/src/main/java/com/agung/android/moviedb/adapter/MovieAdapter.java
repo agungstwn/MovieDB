@@ -1,6 +1,8 @@
 package com.agung.android.moviedb.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,9 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.agung.android.moviedb.R;
-import com.agung.android.moviedb.model.nowPlayingResponse.ResultsItem;
+import com.agung.android.moviedb.activity.DetailActivity;
+import com.agung.android.moviedb.model.ResultsItem;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -43,13 +47,27 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     }
 
     @Override
-    public void onBindViewHolder(MovieAdapter.MovieViewHolder holder, int position) {
+    public void onBindViewHolder(final MovieAdapter.MovieViewHolder holder, final int position) {
         holder.mTitle.setText(movies.get(position).getTitle());
         holder.mSubTitle.setText(movies.get(position).getReleaseDate());
         holder.mDescription.setText(movies.get(position).getOverview());
         Picasso.with(context).load("https://image.tmdb.org/t/p/w185_and_h278_bestv2"
-                +movies.get(position).getPosterPath()).into(holder.mPoster);
-        Log.d(TAG, "onBindViewHolder: "+movies.get(position).getPosterPath());
+                + movies.get(position).getPosterPath()).into(holder.mPoster);
+        Log.d(TAG, "onBindViewHolder: " + movies.get(position).getPosterPath());
+
+        holder.mListLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context, ""+movies.get(position).getId(), Toast.LENGTH_SHORT).show();
+                context.startActivity(new Intent(context, DetailActivity.class)
+                .putExtra("id", movies.get(position).getId()));
+            }
+        });
+    }
+
+    public void onDetail(int id) {
+        Intent mDetail = new Intent(context, DetailActivity.class);
+        context.startActivity(mDetail);
     }
 
     @Override
@@ -57,7 +75,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         return movies.size();
     }
 
-    public class MovieViewHolder extends RecyclerView.ViewHolder{
+    public class MovieViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.tv_title)
         TextView mTitle;
         @BindView(R.id.tv_subtitle)
@@ -66,6 +84,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         TextView mDescription;
         @BindView(R.id.iv_poster)
         ImageView mPoster;
+        @BindView(R.id.cv_row_movie)
+        CardView mListLayout;
 
         public MovieViewHolder(View itemView) {
             super(itemView);

@@ -20,7 +20,8 @@
         </activity>
         <activity android:name=".activity.PopularActivity" />
         <activity android:name=".activity.TopRateActivity" />
-        <activity android:name=".activity.UpComingActivity"></activity>
+        <activity android:name=".activity.UpComingActivity" />
+        <activity android:name=".activity.DetailActivity"></activity>
     </application>
 
 </manifest>

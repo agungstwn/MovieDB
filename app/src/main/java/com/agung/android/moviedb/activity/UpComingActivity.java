@@ -1,17 +1,19 @@
 package com.agung.android.moviedb.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import com.agung.android.moviedb.R;
-import com.agung.android.moviedb.adapter.UpComingAdapter;
+import com.agung.android.moviedb.adapter.MovieAdapter;
 import com.agung.android.moviedb.api.ApiClient;
-import com.agung.android.moviedb.model.upComingResponse.ResultsItem;
-import com.agung.android.moviedb.model.upComingResponse.UpComingResponse;
+import com.agung.android.moviedb.model.MovieResponse;
+import com.agung.android.moviedb.model.ResultsItem;
+import com.agung.android.moviedb.utils.constant;
 
 import java.util.List;
 
@@ -21,13 +23,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.agung.android.moviedb.activity.MainActivity.API_KEY;
 
 public class UpComingActivity extends AppCompatActivity {
     @BindView(R.id.toolbar_upcoming)
     Toolbar mToolbar;
     @BindView(R.id.recycler_view)
     RecyclerView mRecylcerView;
+    @BindView(R.id.progress_bar)
+    ProgressBar mProgressbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,19 +55,22 @@ public class UpComingActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        Call<UpComingResponse> call = ApiClient.getService().getUpcomingResponse(API_KEY);
-        call.enqueue(new Callback<UpComingResponse>() {
+        Call<MovieResponse> call = ApiClient.getService().getUpcomingResponse(constant.Api.API_KEY);
+        call.enqueue(new Callback<MovieResponse>() {
             @Override
-            public void onResponse(Call<UpComingResponse> call, Response<UpComingResponse> response) {
+            public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
+                mProgressbar.setVisibility(View.GONE);
+                mRecylcerView.setVisibility(View.VISIBLE);
+
                 List<ResultsItem> movies = response.body().getResults();
                 mRecylcerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                mRecylcerView.setAdapter(new UpComingAdapter
-                        (movies, R.layout.row_home_list, getApplicationContext()));
+                mRecylcerView.setAdapter(new MovieAdapter
+                        (movies, R.layout.row_home_list, UpComingActivity.this));
             }
 
             @Override
-            public void onFailure(Call<UpComingResponse> call, Throwable t) {
-
+            public void onFailure(Call<MovieResponse> call, Throwable t) {
+                mProgressbar.setVisibility(View.GONE);
             }
         });
     }

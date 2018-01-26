@@ -18,13 +18,4 @@
                 android:title="Coming Soon Movie"/>
         </menu>
     </item>
-
-    <item android:title="Let you Friends now">
-        <menu>
-            <item
-                android:id="@+id/action_about"
-                android:icon="@drawable/ic_about"
-                android:title="About Me"/>
-        </menu>
-    </item>
 </menu>

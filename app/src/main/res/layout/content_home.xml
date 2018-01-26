@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout android:scrollbars="none"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:backgroundTint="@color/colorDevider"
     android:background="@color/colorTextWhite"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -11,22 +11,33 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.agung.android.moviedb.activity.MainActivity"
     tools:showIn="@layout/app_bar_layout_home">
-
-            <ImageView
-                android:id="@+id/iv_home_image"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"/>
-            <TextView
-                android:id="@+id/tv_header_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorSecondaryText"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="@string/movie_title"
-                android:textColor="@color/colorTextWhite"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        />
+    <LinearLayout
+        android:id="@+id/ll_home"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+        <ImageView
+            android:id="@+id/iv_home_image"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"/>
+        <TextView
+            android:id="@+id/tv_header_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorSecondaryText"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="@string/movie_title"
+            android:textColor="@color/colorTextWhite"
+            android:textSize="16sp"
+            android:textStyle="bold" />
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -35,4 +46,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </ScrollView>
+    </LinearLayout>
+
+
 </LinearLayout>

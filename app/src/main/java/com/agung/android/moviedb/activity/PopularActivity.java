@@ -6,12 +6,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import com.agung.android.moviedb.R;
-import com.agung.android.moviedb.adapter.PopularAdapter;
+import com.agung.android.moviedb.adapter.MovieAdapter;
 import com.agung.android.moviedb.api.ApiClient;
-import com.agung.android.moviedb.model.popularResponse.PopularResponse;
-import com.agung.android.moviedb.model.popularResponse.ResultsItem;
+import com.agung.android.moviedb.model.MovieResponse;
+import com.agung.android.moviedb.model.ResultsItem;
+import com.agung.android.moviedb.utils.constant;
 
 import java.util.List;
 
@@ -21,14 +23,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.agung.android.moviedb.activity.MainActivity.API_KEY;
-
 public class PopularActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar_popular)
     Toolbar mToolbar;
     @BindView(R.id.recycler_view)
     RecyclerView mRecylerView;
+    @BindView(R.id.progress_bar)
+    ProgressBar mProgressbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,19 +54,22 @@ public class PopularActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        Call<PopularResponse> call = ApiClient.getService().getPopularRensponse(API_KEY);
-        call.enqueue(new Callback<PopularResponse>() {
+        Call<MovieResponse> call = ApiClient.getService().getPopularRensponse(constant.Api.API_KEY);
+        call.enqueue(new Callback<MovieResponse>() {
             @Override
-            public void onResponse(Call<PopularResponse> call, Response<PopularResponse> response) {
+            public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
+                mProgressbar.setVisibility(View.GONE);
+                mRecylerView.setVisibility(View.VISIBLE);
+
                 List<ResultsItem> movies = response.body().getResults();
                 mRecylerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                mRecylerView.setAdapter(new PopularAdapter
-                        (movies, R.layout.row_home_list, getApplicationContext()));
+                mRecylerView.setAdapter(new MovieAdapter
+                        (movies, R.layout.row_home_list, PopularActivity.this));
             }
 
             @Override
-            public void onFailure(Call<PopularResponse> call, Throwable t) {
-
+            public void onFailure(Call<MovieResponse> call, Throwable t) {
+            mProgressbar.setVisibility(View.GONE);
             }
 
         });

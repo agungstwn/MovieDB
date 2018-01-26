@@ -35,4 +35,28 @@
         android:layout_height="wrap_content"
         android:text="agungstwn0@gmail.com"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/text_medium">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Suported by: "
+            android:layout_gravity="center_vertical"/>
+        <ImageView
+            android:id="@+id/android_kejar_img"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:layout_marginRight="2dp"/>
+        <ImageView
+            android:id="@+id/google_dev"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
 </LinearLayout>

@@ -1,17 +1,19 @@
 package com.agung.android.moviedb.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import com.agung.android.moviedb.R;
-import com.agung.android.moviedb.adapter.TopRateAdapter;
+import com.agung.android.moviedb.adapter.MovieAdapter;
 import com.agung.android.moviedb.api.ApiClient;
-import com.agung.android.moviedb.model.topRateResponse.MovieResponse;
-import com.agung.android.moviedb.model.topRateResponse.ResultsItem;
+import com.agung.android.moviedb.model.MovieResponse;
+import com.agung.android.moviedb.model.ResultsItem;
+import com.agung.android.moviedb.utils.constant;
 
 import java.util.List;
 
@@ -21,7 +23,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.agung.android.moviedb.activity.MainActivity.API_KEY;
 
 public class TopRateActivity extends AppCompatActivity {
 
@@ -29,6 +30,8 @@ public class TopRateActivity extends AppCompatActivity {
     Toolbar mToolbar;
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
+    @BindView(R.id.progress_bar)
+    ProgressBar mProgressbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,19 +56,22 @@ public class TopRateActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        Call<MovieResponse> call = ApiClient.getService().getTopRatedMovies(API_KEY);
+        Call<MovieResponse> call = ApiClient.getService().getTopRatedMovies(constant.Api.API_KEY);
         call.enqueue(new Callback<MovieResponse>() {
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
+                mProgressbar.setVisibility(View.GONE);
+                mRecyclerView.setVisibility(View.VISIBLE);
+
                 List<ResultsItem> movies = response.body().getResults();
                 mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                mRecyclerView.setAdapter(new TopRateAdapter
-                        (movies, R.layout.row_home_list, getApplicationContext()));
+                mRecyclerView.setAdapter(new MovieAdapter
+                        (movies, R.layout.row_home_list, TopRateActivity.this));
             }
 
             @Override
             public void onFailure(Call<MovieResponse> call, Throwable t) {
-
+                mProgressbar.setVisibility(View.GONE);
             }
         });
     }
