@@ -7,6 +7,7 @@ package com.agung.android.moviedb.utils;
 public interface constant {
 
     interface Api {
+        String GITHUB="https://github.com/agungstwn/MovieDB";
         String BASE_URL = "https://Api.themoviedb.org/3/movie/";
         String API_KEY = "a66a817fc8a82a58172fad6b30e38aee";
         String IMAGE_PATH = "https://image.tmdb.org/t/p/w500";

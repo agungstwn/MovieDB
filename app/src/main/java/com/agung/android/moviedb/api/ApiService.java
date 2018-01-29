@@ -1,6 +1,7 @@
 package com.agung.android.moviedb.api;
 
 import com.agung.android.moviedb.model.MovieResponse;
+import com.agung.android.moviedb.model.creditsResponse.CastsResponse;
 import com.agung.android.moviedb.model.detailResponse.DetailMovieResponse;
 
 import retrofit2.Call;
@@ -27,6 +28,9 @@ public interface ApiService {
 
     @GET("movie/{id}")
     Call<DetailMovieResponse>getMovieDetails(@Path("id")int id, @Query("api_key") String apiKey);
+
+    @GET("movie/{movie_id}/credits")
+    Call<CastsResponse>getCasts(@Path("movie_id")int id, @Query("api_key") String apiKey);
 
 
 

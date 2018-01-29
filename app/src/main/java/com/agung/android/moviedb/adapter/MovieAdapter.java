@@ -15,6 +15,8 @@ import android.widget.Toast;
 import com.agung.android.moviedb.R;
 import com.agung.android.moviedb.activity.DetailActivity;
 import com.agung.android.moviedb.model.ResultsItem;
+import com.agung.android.moviedb.utils.constant;
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -48,17 +50,18 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     @Override
     public void onBindViewHolder(final MovieAdapter.MovieViewHolder holder, final int position) {
+        ResultsItem movie = movies.get(position);
         holder.mTitle.setText(movies.get(position).getTitle());
         holder.mSubTitle.setText(movies.get(position).getReleaseDate());
         holder.mDescription.setText(movies.get(position).getOverview());
-        Picasso.with(context).load("https://image.tmdb.org/t/p/w185_and_h278_bestv2"
-                + movies.get(position).getPosterPath()).into(holder.mPoster);
-        Log.d(TAG, "onBindViewHolder: " + movies.get(position).getPosterPath());
+        Glide.with(context).load(constant.Api.IMAGE_PATH
+                + movie.getPosterPath()).into(holder.mPoster);
 
         holder.mListLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, ""+movies.get(position).getId(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "" + movies.get(position).getId(),
+                        Toast.LENGTH_SHORT).show();
                 context.startActivity(new Intent(context, DetailActivity.class)
                 .putExtra("id", movies.get(position).getId()));
             }
