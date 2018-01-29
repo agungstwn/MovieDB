@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.agung.android.moviedb.R;
 import com.agung.android.moviedb.activity.DetailActivity;
 import com.agung.android.moviedb.model.ResultsItem;
+import com.agung.android.moviedb.model.detailResponse.DetailMovieResponse;
 import com.agung.android.moviedb.utils.constant;
 import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
@@ -35,6 +36,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     private List<ResultsItem> movies;
     private int rowLayout;
     private Context context;
+    private DetailMovieResponse detail;
 
     public MovieAdapter(List<ResultsItem> movies, int rowLayout, Context context) {
         this.movies = movies;

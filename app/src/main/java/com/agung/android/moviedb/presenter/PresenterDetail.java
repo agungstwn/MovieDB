@@ -3,9 +3,13 @@ package com.agung.android.moviedb.presenter;
 import com.agung.android.moviedb.api.ApiClient;
 import com.agung.android.moviedb.model.creditsResponse.CastItem;
 import com.agung.android.moviedb.model.creditsResponse.CastsResponse;
+import com.agung.android.moviedb.model.creditsResponse.CrewItem;
 import com.agung.android.moviedb.model.detailResponse.DetailMovieResponse;
+import com.agung.android.moviedb.model.reviewResponse.ReviewsResponse;
 import com.agung.android.moviedb.utils.constant;
 import com.agung.android.moviedb.view.ViewDetail;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -52,12 +56,28 @@ public class PresenterDetail {
             @Override
             public void onResponse(Call<CastsResponse> call, Response<CastsResponse> response) {
                 if (response.code() == 200){
-                    getView().onLoadData(detail, response.body().getCast());
+                    getReviews(detail, response.body().getCast(),
+                            response.body().getCrew());
                 }
             }
 
             @Override
             public void onFailure(Call<CastsResponse> call, Throwable t) {
+                getView().onError("Server Failure: " + t.getMessage());
+            }
+        });
+    }
+
+    private void getReviews(final DetailMovieResponse detail, final List<CastItem> cast, final List<CrewItem> crew){
+        Call<ReviewsResponse> call = ApiClient.getService().getReviews(detail.getId(), constant.Api.API_KEY);
+        call.enqueue(new Callback<ReviewsResponse>() {
+            @Override
+            public void onResponse(Call<ReviewsResponse> call, Response<ReviewsResponse> response) {
+                getView().onLoadData(detail, cast, crew, response.body().getResults());
+            }
+
+            @Override
+            public void onFailure(Call<ReviewsResponse> call, Throwable t) {
 
             }
         });

@@ -18,10 +18,14 @@ import android.widget.Toast;
 
 import com.agung.android.moviedb.R;
 import com.agung.android.moviedb.adapter.CastAdapter;
+import com.agung.android.moviedb.adapter.CrewAdapter;
+import com.agung.android.moviedb.adapter.ReviewAdapter;
 import com.agung.android.moviedb.model.creditsResponse.CastItem;
 import com.agung.android.moviedb.model.creditsResponse.CastsResponse;
+import com.agung.android.moviedb.model.creditsResponse.CrewItem;
 import com.agung.android.moviedb.model.detailResponse.DetailMovieResponse;
 import com.agung.android.moviedb.model.detailResponse.GenresItem;
+import com.agung.android.moviedb.model.reviewResponse.ResultsItem;
 import com.agung.android.moviedb.presenter.PresenterDetail;
 import com.agung.android.moviedb.utils.constant;
 import com.agung.android.moviedb.view.ViewDetail;
@@ -63,12 +67,18 @@ public class DetailActivity extends AppCompatActivity implements ViewDetail {
     @BindView(R.id.ll_detail_movie_layout)
     LinearLayout mLayoutDetal;
     @BindView(R.id.cast)
-    RecyclerView cast;
+    RecyclerView castList;
+    @BindView(R.id.crew)
+    RecyclerView crewList;
+    @BindView(R.id.review)
+    RecyclerView reviewList;
 
     private int id;
     private DetailMovieResponse movie;
     private PresenterDetail presenter;
     private CastAdapter castAdapter;
+    private CrewAdapter crewAdapter;
+    private ReviewAdapter reviewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,7 +148,8 @@ public class DetailActivity extends AppCompatActivity implements ViewDetail {
     }
 
     @Override
-    public void onLoadData(final DetailMovieResponse movie, final List<CastItem> casts) {
+    public void onLoadData(final DetailMovieResponse movie, final List<CastItem> casts,
+                           final List<CrewItem> crews, final List<ResultsItem>review) {
         this.movie = movie;
         mToolbar.setTitle(movie.getTitle());
         Glide.with(this).load(constant.Api.IMAGE_PATH
@@ -167,11 +178,23 @@ public class DetailActivity extends AppCompatActivity implements ViewDetail {
             durationString = minute + "m";
         }
         mRuntime.setText(durationString);
-        if (castAdapter == null) castAdapter = new CastAdapter(casts, this);
-        cast.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        cast.setHasFixedSize(true);
-        cast.setAdapter(castAdapter);
 
+        if (castAdapter == null) castAdapter = new CastAdapter(casts, this);
+        castList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,
+                false));
+        castList.setHasFixedSize(true);
+        castList.setAdapter(castAdapter);
+
+        if (crewAdapter == null) crewAdapter = new CrewAdapter(crews, this);
+        crewList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,
+                false));
+        crewList.setHasFixedSize(true);
+        crewList.setAdapter(crewAdapter);
+
+        if (reviewAdapter == null) reviewAdapter = new ReviewAdapter(review, this);
+        reviewList.setLayoutManager(new LinearLayoutManager(this));
+        reviewList.setHasFixedSize(true);
+        reviewList.setAdapter(reviewAdapter);
     }
 
     @Override

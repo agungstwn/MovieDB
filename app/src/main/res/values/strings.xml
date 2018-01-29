@@ -11,4 +11,5 @@
     <string name="no_data">Tidak Ada Data</string>
     <string name="menu_search_here">Search Here</string>
     <string name="detail_movie">Detail Movie</string>
+    <string name="status">Status</string>
 </resources>

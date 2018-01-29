@@ -46,7 +46,6 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.ViewHolder>{
         holder.mNamaCast.setText(casts.get(position).getName());
         Glide.with(context).load(constant.Api.IMAGE_PATH
                 +cast.getProfilePath()).into(holder.mImageCast);
-
     }
 
     @Override
