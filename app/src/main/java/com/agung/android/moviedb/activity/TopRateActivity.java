@@ -1,6 +1,8 @@
 package com.agung.android.moviedb.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -32,14 +34,34 @@ public class TopRateActivity extends AppCompatActivity {
     RecyclerView mRecyclerView;
     @BindView(R.id.progress_bar)
     ProgressBar mProgressbar;
+    @BindView(R.id.detail_movie_refresh)
+    SwipeRefreshLayout mRefresh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_top_rate);
         ButterKnife.bind(this);
+        initRefresh();
         initView();
         initToolbar();
+    }
+
+    private void initRefresh() {
+        mRefresh.setColorSchemeColors(Color.RED, Color.YELLOW, Color.GREEN, Color.BLUE);
+        mRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getDetailMovies();
+            }
+        });
+    }
+
+    private void getDetailMovies(){
+        mProgressbar.setVisibility(View.VISIBLE);
+        mRecyclerView.setVisibility(View.GONE);
+        mRefresh.setRefreshing(false);
+        initView();
     }
 
     private void initToolbar() {

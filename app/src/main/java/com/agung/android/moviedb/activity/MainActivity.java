@@ -3,6 +3,7 @@ package com.agung.android.moviedb.activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.Image;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -11,6 +12,7 @@ import android.support.design.internal.NavigationMenuView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -66,6 +68,8 @@ public class MainActivity extends AppCompatActivity implements
     ProgressBar mProgressBar;
     @BindView(R.id.ll_home)
     LinearLayout mLLHome;
+    @BindView(R.id.detail_movie_refresh)
+    SwipeRefreshLayout mRefresh;
 
     private TextView mUsername;
     private TextView mEmail;
@@ -78,6 +82,24 @@ public class MainActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         initToolbarNavigation();
+        initRefresh();
+        initView();
+    }
+
+    private void initRefresh() {
+        mRefresh.setColorSchemeColors(Color.RED, Color.YELLOW, Color.GREEN, Color.BLUE);
+        mRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getDetailMovies();
+            }
+        });
+    }
+
+    private void getDetailMovies(){
+        mProgressBar.setVisibility(View.VISIBLE);
+        mLLHome.setVisibility(View.GONE);
+        mRefresh.setRefreshing(false);
         initView();
     }
 
@@ -177,7 +199,7 @@ public class MainActivity extends AppCompatActivity implements
         Glide.with(this).load(constant.Api.IMAGE_PATH + movie.getBackdropPath()).into(mImageHeader);
         mHeaderTitle.setText(movie.getTitle());
         final Context context = this;
-        new CountDownTimer(5000, 1000) {
+        new CountDownTimer(10000, 10000) {
 
             @Override
             public void onTick(long l) {

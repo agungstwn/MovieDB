@@ -1,52 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:scrollbars="none"
-    android:orientation="horizontal"
-    android:backgroundTint="@color/colorDevider"
-    android:background="@color/colorTextWhite"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorTextWhite"
+    android:backgroundTint="@color/colorDevider"
+    android:orientation="horizontal"
+    android:scrollbars="none"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.agung.android.moviedb.activity.MainActivity"
     tools:showIn="@layout/app_bar_layout_home">
+
     <ProgressBar
         android:id="@+id/progress_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        />
-    <LinearLayout
-        android:id="@+id/ll_home"
+        android:layout_gravity="center_vertical" />
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/detail_movie_refresh"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:visibility="gone">
-        <ImageView
-            android:id="@+id/iv_home_image"
+        android:layout_height="match_parent">
+
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="200dp"/>
-        <TextView
-            android:id="@+id/tv_header_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorSecondaryText"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text="@string/movie_title"
-            android:textColor="@color/colorTextWhite"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_home"
+            android:layout_height="match_parent">
+
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </ScrollView>
-    </LinearLayout>
+                android:layout_height="wrap_content">
 
+                <LinearLayout
+                    android:id="@+id/ll_home"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
+                    <ImageView
+                        android:id="@+id/iv_home_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp" />
+
+                    <TextView
+                        android:id="@+id/tv_header_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorSecondaryText"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="@string/movie_title"
+                        android:textColor="@color/colorTextWhite"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_home"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </ScrollView>
+        </android.support.v4.widget.NestedScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>
