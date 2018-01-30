@@ -62,6 +62,8 @@ public class DetailActivity extends AppCompatActivity implements ViewDetail {
     TextView mRuntime;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
+    @BindView(R.id.detail_title)
+    TextView mDetailTitle;
     @BindView(R.id.pb_loading)
     ProgressBar mLoading;
     @BindView(R.id.ll_detail_movie_layout)
@@ -151,6 +153,7 @@ public class DetailActivity extends AppCompatActivity implements ViewDetail {
     public void onLoadData(final DetailMovieResponse movie, final List<CastItem> casts,
                            final List<CrewItem> crews, final List<ResultsItem>review) {
         this.movie = movie;
+        mDetailTitle.setText(movie.getTitle());
         mToolbar.setTitle(movie.getTitle());
         Glide.with(this).load(constant.Api.IMAGE_PATH
                 + movie.getBackdropPath()).into(mHeaderImage);

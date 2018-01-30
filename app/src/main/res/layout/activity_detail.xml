@@ -20,11 +20,11 @@
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
             <TextView
+                android:id="@+id/detail_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/text_extra_large"
                 android:gravity="center"
-                android:text="@string/detail_movie"
                 android:textColor="@color/colorTextWhite"
                 android:textSize="@dimen/text_large"
                 android:textStyle="bold" />
