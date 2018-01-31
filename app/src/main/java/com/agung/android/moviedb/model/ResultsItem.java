@@ -164,7 +164,7 @@ public class ResultsItem{
 	@Override
  	public String toString(){
 		return 
-			"ResultsItem{" + 
+			"VideosItem{" +
 			"overview = '" + overview + '\'' + 
 			",original_language = '" + originalLanguage + '\'' + 
 			",original_title = '" + originalTitle + '\'' + 

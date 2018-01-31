@@ -20,12 +20,14 @@ import com.agung.android.moviedb.R;
 import com.agung.android.moviedb.adapter.CastAdapter;
 import com.agung.android.moviedb.adapter.CrewAdapter;
 import com.agung.android.moviedb.adapter.ReviewAdapter;
+import com.agung.android.moviedb.adapter.VideoAdapter;
 import com.agung.android.moviedb.model.creditsResponse.CastItem;
 import com.agung.android.moviedb.model.creditsResponse.CastsResponse;
 import com.agung.android.moviedb.model.creditsResponse.CrewItem;
 import com.agung.android.moviedb.model.detailResponse.DetailMovieResponse;
 import com.agung.android.moviedb.model.detailResponse.GenresItem;
 import com.agung.android.moviedb.model.reviewResponse.ResultsItem;
+import com.agung.android.moviedb.model.videoResponse.VideosItem;
 import com.agung.android.moviedb.presenter.PresenterDetail;
 import com.agung.android.moviedb.utils.constant;
 import com.agung.android.moviedb.view.ViewDetail;
@@ -74,6 +76,8 @@ public class DetailActivity extends AppCompatActivity implements ViewDetail {
     RecyclerView crewList;
     @BindView(R.id.review)
     RecyclerView reviewList;
+    @BindView(R.id.trailer)
+    RecyclerView videoList;
 
     private int id;
     private DetailMovieResponse movie;
@@ -81,6 +85,7 @@ public class DetailActivity extends AppCompatActivity implements ViewDetail {
     private CastAdapter castAdapter;
     private CrewAdapter crewAdapter;
     private ReviewAdapter reviewAdapter;
+    private VideoAdapter videoAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,7 +156,7 @@ public class DetailActivity extends AppCompatActivity implements ViewDetail {
 
     @Override
     public void onLoadData(final DetailMovieResponse movie, final List<CastItem> casts,
-                           final List<CrewItem> crews, final List<ResultsItem>review) {
+                           final List<CrewItem> crews, final List<ResultsItem>review, final List<VideosItem> video) {
         this.movie = movie;
         mDetailTitle.setText(movie.getTitle());
         mToolbar.setTitle(movie.getTitle());
@@ -198,6 +203,11 @@ public class DetailActivity extends AppCompatActivity implements ViewDetail {
         reviewList.setLayoutManager(new LinearLayoutManager(this));
         reviewList.setHasFixedSize(true);
         reviewList.setAdapter(reviewAdapter);
+
+        if (videoAdapter == null) videoAdapter = new VideoAdapter(video, this);
+        videoList.setLayoutManager(new LinearLayoutManager(this));
+        videoList.setHasFixedSize(true);
+        videoList.setAdapter(videoAdapter);
     }
 
     @Override

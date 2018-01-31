@@ -15,4 +15,5 @@ public interface constant {
         String GOOGLE_DEV_IMAGE_URL = "http://dash.coolsmartphone.com/wp-content/uploads/2013/07/Google-Developers-Logo.png";
         String RATING = "\u2605 ";
     }
+
 }

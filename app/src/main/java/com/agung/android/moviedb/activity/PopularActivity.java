@@ -1,5 +1,6 @@
 package com.agung.android.moviedb.activity;
 
+import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -8,7 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.ProgressBar;
+import android.widget.LinearLayout;
 
 import com.agung.android.moviedb.R;
 import com.agung.android.moviedb.adapter.MovieAdapter;
@@ -31,10 +32,12 @@ public class PopularActivity extends AppCompatActivity {
     Toolbar mToolbar;
     @BindView(R.id.recycler_view)
     RecyclerView mRecylerView;
-    @BindView(R.id.progress_bar)
-    ProgressBar mProgressbar;
     @BindView(R.id.detail_movie_refresh)
     SwipeRefreshLayout mRefresh;
+    @BindView(R.id.ll_error)
+    LinearLayout mErrorLayout;
+
+    private ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,8 @@ public class PopularActivity extends AppCompatActivity {
         initRefresh();
         initToolbar();
         initView();
+
+        dialog = ProgressDialog.show(this, "", "Tunggu Sebentar", true);
 
     }
 
@@ -57,8 +62,8 @@ public class PopularActivity extends AppCompatActivity {
         });
     }
 
-    private void getDetailMovies(){
-        mProgressbar.setVisibility(View.VISIBLE);
+    private void getDetailMovies() {
+        dialog.show();
         mRecylerView.setVisibility(View.GONE);
         mRefresh.setRefreshing(false);
         initView();
@@ -78,12 +83,13 @@ public class PopularActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        mErrorLayout.setVisibility(View.GONE);
         Call<MovieResponse> call = ApiClient.getService().getPopularRensponse(constant.Api.API_KEY);
         call.enqueue(new Callback<MovieResponse>() {
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
-                mProgressbar.setVisibility(View.GONE);
                 mRecylerView.setVisibility(View.VISIBLE);
+                dialog.dismiss();
 
                 List<ResultsItem> movies = response.body().getResults();
                 mRecylerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
@@ -92,14 +98,14 @@ public class PopularActivity extends AppCompatActivity {
             }
 
             @Override
+
             public void onFailure(Call<MovieResponse> call, Throwable t) {
-            mProgressbar.setVisibility(View.GONE);
+                mErrorLayout.setVisibility(View.VISIBLE);
+                dialog.dismiss();
             }
 
         });
     }
-
-
 
 
 }

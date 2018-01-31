@@ -53,7 +53,7 @@ public class ResultsItem{
 	@Override
  	public String toString(){
 		return 
-			"ResultsItem{" + 
+			"VideosItem{" +
 			"author = '" + author + '\'' + 
 			",id = '" + id + '\'' + 
 			",content = '" + content + '\'' + 

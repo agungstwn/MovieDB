@@ -230,6 +230,7 @@
                     android:layout_marginRight="@dimen/marginMedium"
                     android:layout_marginTop="@dimen/marginLarge">
                     <TextView
+                        android:id="@+id/tv_title_reviews"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Reviews"
@@ -237,6 +238,28 @@
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/review"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="@dimen/marginMedium"
+                    android:layout_marginRight="@dimen/marginMedium"
+                    android:layout_marginTop="@dimen/marginLarge">
+                    <TextView
+                        android:id="@+id/tv_title_trailers"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Trailers"
+                        android:textStyle="bold" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/trailer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"

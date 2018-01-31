@@ -4,6 +4,7 @@ import com.agung.android.moviedb.model.MovieResponse;
 import com.agung.android.moviedb.model.creditsResponse.CastsResponse;
 import com.agung.android.moviedb.model.detailResponse.DetailMovieResponse;
 import com.agung.android.moviedb.model.reviewResponse.ReviewsResponse;
+import com.agung.android.moviedb.model.videoResponse.VideoResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -35,5 +36,8 @@ public interface ApiService {
 
     @GET("movie/{movie_id}/reviews")
     Call<ReviewsResponse>getReviews(@Path("movie_id")int id, @Query("api_key") String apiKey);
+
+    @GET("movie/{movie_id}/videos")
+    Call<VideoResponse>getVideos(@Path("movie_id")int id, @Query("api_key") String apiKey);
 
 }

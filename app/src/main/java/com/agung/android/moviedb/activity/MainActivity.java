@@ -1,5 +1,6 @@
 package com.agung.android.moviedb.activity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -64,16 +65,17 @@ public class MainActivity extends AppCompatActivity implements
     ImageView mImageHeader;
     @BindView(R.id.tv_header_title)
     TextView mHeaderTitle;
-    @BindView(R.id.progress_bar)
-    ProgressBar mProgressBar;
     @BindView(R.id.ll_home)
     LinearLayout mLLHome;
     @BindView(R.id.detail_movie_refresh)
     SwipeRefreshLayout mRefresh;
+    @BindView(R.id.ll_error)
+    LinearLayout mLayoutError;
 
     private TextView mUsername;
     private TextView mEmail;
     private Context context = this;
+    private ProgressDialog dialog;
 
 
     @Override
@@ -84,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements
         initToolbarNavigation();
         initRefresh();
         initView();
+        dialog = ProgressDialog.show(this, "", "Tunggu Sebentar", true);
     }
 
     private void initRefresh() {
@@ -97,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void getDetailMovies(){
-        mProgressBar.setVisibility(View.VISIBLE);
+        dialog.show();
         mLLHome.setVisibility(View.GONE);
         mRefresh.setRefreshing(false);
         initView();
@@ -123,14 +126,14 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     void initView() {
+        mLayoutError.setVisibility(View.GONE);
         Call<MovieResponse> call = ApiClient.getService().getNowPlaying(API_KEY);
         call.enqueue(new Callback<MovieResponse>() {
             @Override
             public void onResponse(Call<MovieResponse>
                                            call, Response<MovieResponse> response) {
-
-                mProgressBar.setVisibility(View.GONE);
                 mLLHome.setVisibility(View.VISIBLE);
+                dialog.dismiss();
 
                 List<ResultsItem> movies = response.body().getResults();
 
@@ -146,7 +149,8 @@ public class MainActivity extends AppCompatActivity implements
 
             @Override
             public void onFailure(Call<MovieResponse> call, Throwable t) {
-                mProgressBar.setVisibility(View.GONE);
+                mLayoutError.setVisibility(View.VISIBLE);
+                dialog.dismiss();
             }
         });
     }
